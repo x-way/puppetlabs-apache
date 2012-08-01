@@ -15,8 +15,18 @@
 class apache::php {
   include apache::params
 
-  package { 'apache_php_package':
-    ensure => present,
-    name   => $apache::params::php_package,
+  case $osfamily {
+    'redhat': {
+      package { 'apache_php_package':
+        ensure => present,
+        name   => $apache::params::php_package,
+      }
+    }
+    'debian': {
+      a2mod { 'php': ensure => present, }
+    }
+    default: {
+      fail("${operatingsystem} not defined in apache::php.")
+    }
   }
 }
