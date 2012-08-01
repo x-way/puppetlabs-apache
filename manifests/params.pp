@@ -33,31 +33,31 @@ class apache::params {
 
   case $::operatingsystem {
     'centos', 'redhat', 'fedora', 'scientific', 'amazon': {
-      $apache_name = 'httpd'
-      $php_package = 'php'
+      $apache_name        = 'httpd'
+      $php_package        = 'php'
       $mod_python_package = 'mod_python'
-      $mod_wsgi_package = 'mod_wsgi'
-      $ssl_package = 'mod_ssl'
-      $apache_dev  = 'httpd-devel'
-      $vdir = '/etc/httpd/conf.d/'
+      $mod_wsgi_package   = 'mod_wsgi'
+      $ssl_package        = 'mod_ssl'
+      $apache_dev         = 'httpd-devel'
+      $vdir               = '/etc/httpd/conf.d/'
     }
     'ubuntu', 'debian': {
-      $apache_name = 'apache2'
-      $php_package = 'libapache2-mod-php5'
+      $apache_name        = 'apache2'
+      $php_package        = 'libapache2-mod-php5'
       $mod_python_package = 'libapache2-mod-python'
-      $mod_wsgi_package = 'libapache2-mod-wsgi'
-      $ssl_package = 'apache-ssl'
-      $apache_dev  = ['libaprutil1-dev', 'libapr1-dev', 'apache2-prefork-dev']
-      $vdir = '/etc/apache2/sites-enabled/'
+      $mod_wsgi_package   = 'libapache2-mod-wsgi'
+      $ssl_package        = 'apache-ssl'
+      $apache_dev         = ['libaprutil1-dev', 'libapr1-dev', 'apache2-prefork-dev']
+      $vdir               = '/etc/apache2/sites-enabled/'
     }
     default: {
-      $apache_name = 'apache2'
-      $php_package = 'libapache2-mod-php5'
+      $apache_name        = 'apache2'
+      $php_package        = 'libapache2-mod-php5'
       $mod_python_package = 'libapache2-mod-python'
-      $mod_wsgi_package = 'libapache2-mod-wsgi'
-      $ssl_package = 'apache-ssl'
-      $apache_dev  = 'apache-dev'
-      $vdir = '/etc/apache2/sites-enabled/'
+      $mod_wsgi_package   = 'libapache2-mod-wsgi'
+      $ssl_package        = 'apache-ssl'
+      $apache_dev         = 'apache-dev'
+      $vdir               = '/etc/apache2/sites-enabled/'
     }
   }
 }
