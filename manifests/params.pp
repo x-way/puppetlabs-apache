@@ -18,7 +18,6 @@
 # Sample Usage:
 #
 class apache::params {
-
   $user          = 'www-data'
   $group         = 'www-data'
   $ssl           = true
@@ -31,33 +30,32 @@ class apache::params {
   $options       = 'Indexes FollowSymLinks MultiViews'
   $vhost_name    = '*'
 
-  case $::operatingsystem {
-    'centos', 'redhat', 'fedora', 'scientific', 'amazon': {
-      $apache_name        = 'httpd'
-      $php_package        = 'php'
-      $mod_python_package = 'mod_python'
-      $mod_wsgi_package   = 'mod_wsgi'
-      $ssl_package        = 'mod_ssl'
-      $apache_dev         = 'httpd-devel'
-      $vdir               = '/etc/httpd/conf.d/'
+  case $::osfamily {
+    'redhat': {
+      $apache_name  = 'httpd'
+      $vdir         = '/etc/httpd/conf.d/'
+      $mod_packages = {
+        'python' => 'mod_python',
+        'perl'   => 'mod_perl',
+        'php'    => 'php',
+        'wsgi'   => 'mod_wsgi',
+        'fcgid'  => 'mod_fcgid',
+        'ssl'    => 'mod_ssl',
+        'dev'    => 'httpd-devel',
+      }
     }
-    'ubuntu', 'debian': {
-      $apache_name        = 'apache2'
-      $php_package        = 'libapache2-mod-php5'
-      $mod_python_package = 'libapache2-mod-python'
-      $mod_wsgi_package   = 'libapache2-mod-wsgi'
-      $ssl_package        = 'apache-ssl'
-      $apache_dev         = ['libaprutil1-dev', 'libapr1-dev', 'apache2-prefork-dev']
-      $vdir               = '/etc/apache2/sites-enabled/'
-    }
-    default: {
-      $apache_name        = 'apache2'
-      $php_package        = 'libapache2-mod-php5'
-      $mod_python_package = 'libapache2-mod-python'
-      $mod_wsgi_package   = 'libapache2-mod-wsgi'
-      $ssl_package        = 'apache-ssl'
-      $apache_dev         = 'apache-dev'
-      $vdir               = '/etc/apache2/sites-enabled/'
+    'debian': {
+      $apache_name  = 'apache2'
+      $vdir         = '/etc/apache2/sites-enabled/'
+      $mod_packages = {
+        'python' => 'libapache2-mod-python',
+        'perl'   => 'libapache2-mod-perl2',
+        'php'    => 'libapache2-mod-php5',
+        'wsgi'   => 'libapache2-mod-wsgi',
+        'fcgid'  => 'libapache2-mod-fcgid',
+        'ssl'    => 'apache-ssl',
+        'dev'    => ['libaprutil1-dev', 'libapr1-dev', 'apache2-prefork-dev'],
+      }
     }
   }
 }
