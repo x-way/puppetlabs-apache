@@ -1,6 +1,5 @@
 define apache::mod (
   $package = undef,
-  $preloaded = false,
 ) {
   $module = $name
   include apache
@@ -20,22 +19,7 @@ define apache::mod (
     }
   }
 
-  case $osfamily {
-    'debian': {
-      a2mod { $module:
-        ensure => present,
-      }
-    }
-    'redhat': {
-      if ! $preloaded {
-        file { "${apache::params::vdir}/00_load_${module}.conf":
-          ensure  => present,
-          content => "LoadModule ${module}_module modules/mod_${module}.so\n",
-          owner   => '0',
-          group   => '0',
-          mode    => '0644',
-        }
-      }
-    }
+  a2mod { $module:
+    ensure => present,
   }
 }
