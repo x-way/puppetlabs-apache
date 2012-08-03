@@ -44,7 +44,7 @@ Puppet::Type.type(:a2mod).provide(:redhat, :parent => Puppet::Provider) do
   def self.modules
     if @modules.length <= 0
       # Isolate the LoadModule statements
-      conf_lines = filetype.read.split("\n")
+      conf_lines = @filetype.read.split("\n")
       apache2_mod_lines = conf_lines.grep(/^LoadModule /)
 
       # Extract all defines
@@ -97,14 +97,14 @@ Puppet::Type.type(:a2mod).provide(:redhat, :parent => Puppet::Provider) do
 
 
       # Filter out stale LoadModule lines and add our own
-      conf_lines = filetype.read.split("\n")
+      conf_lines = @filetype.read.split("\n")
       mods_index = conf_lines.find_index { |i| i.match(/^LoadModule /) }
       conf_lines = conf_lines.reject { |line| line.match(/^LoadModule /) }
-      conf_lines[opts_index] = enabled_mods
+      conf_lines[mods_index] = enabled_mods
 
       # Backup and flush our file
-      filetype.backup
-      filetype.write(conf_lines.join("\n"))
+      @filetype.backup
+      @filetype.write(conf_lines.join("\n"))
       @modules = mod_list
     end
   end
