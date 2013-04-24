@@ -5,7 +5,7 @@ rvm:
 script: "rake spec"
 branches:
   only:
-    - master
+    - default_configure_firewall_travis
 env:
   - PUPPET_VERSION=2.6.17
   - PUPPET_VERSION=2.7.19
