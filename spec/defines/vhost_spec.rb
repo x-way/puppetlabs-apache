@@ -283,7 +283,7 @@ describe 'apache::vhost', :type => :define do
         end
         describe 'when firewall should not be configured' do
           let :params do default_params.merge({ :configure_firewall => false }) end
-          it { should not contain_firewall("0100-INPUT ACCEPT #{params[:port]}") }
+          it { should_not contain_firewall("0100-INPUT ACCEPT #{params[:port]}") }
         end
       end
 
