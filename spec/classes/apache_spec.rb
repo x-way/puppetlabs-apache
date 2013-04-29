@@ -217,7 +217,7 @@ describe 'apache', :type => :class do
     end
   end
 
-  describe "Firewall configuration" do
+  describe "Firewall configuration disabled" do
     let :params do
       { :default_configure_firewall => false }
     end
