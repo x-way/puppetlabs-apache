@@ -111,6 +111,12 @@ describe 'apache', :type => :class do
       end
       it { should contain_apache__vhost('default').with('configure_firewall' => false) }
     end
+    describe "Firewall configuration enabled" do
+      let :params do
+        { :default_configure_firewall => true }
+      end
+      it { should contain_apache__vhost('default').with('configure_firewall' => true) }
+    end
   end
   context "on a RedHat 5 OS" do
     let :facts do
