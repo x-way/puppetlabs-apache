@@ -105,6 +105,12 @@ describe 'apache', :type => :class do
         'target' => "/etc/apache2/mods-available/#{modname}.conf"
       ) }
     end
+    describe "Firewall configuration disabled" do
+      let :params do
+        { :default_configure_firewall => false }
+      end
+      it { should contain_apache__vhost('default').with('configure_firewall' => false) }
+    end
   end
   context "on a RedHat 5 OS" do
     let :facts do
@@ -215,12 +221,5 @@ describe 'apache', :type => :class do
       ) }
       it { should_not contain_file("/etc/httpd/conf.d") }
     end
-  end
-
-  describe "Firewall configuration disabled" do
-    let :params do
-      { :default_configure_firewall => false }
-    end
-    it { should contain_apache__vhost('default').with('configure_firewall' => false) }
   end
 end
