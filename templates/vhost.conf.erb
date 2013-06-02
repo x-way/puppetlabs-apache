@@ -14,8 +14,12 @@
   <Directory <%= @docroot %>>
     Options <%= Array(@options).join(' ') %>
     AllowOverride <%= Array(@override).join(' ') %>
+<% if @allow and ! @allow.empty? -%>
     Order allow,deny
-    allow from all
+  <% Array(@allow).each do |allow_entry| -%>
+    allow from <%= allow_entry %>
+  <% end -%>
+<% end -%>
   </Directory>
 
   ## Logging

@@ -105,6 +105,7 @@ define apache::vhost(
     $block              = [],
     $ensure             = 'present',
     $custom_fragment    = undef
+    $allow              = ['all'],
   ) {
   # The base class must be included first because it is used by parameter defaults
   if ! defined(Class['apache']) {
